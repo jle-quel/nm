@@ -6,7 +6,7 @@
 
 static void	set_title(t_object *object, char const *str)
 {
-	printf("%s", object->name);
+	printf("\n%s", object->name);
 	printf("%s\n", str);
 } 
 
@@ -35,7 +35,7 @@ static bool						is_corrupt(t_object const *object, struct fat_header const *hea
 					error(CORRUPTED_FILE, object->name);
 				return true;
 			}
-			if (object->ptr + get_arch(object, sizeof(struct fat_arch) * index, true)->offset >= object->eof)
+			if (object->ptr + get_arch(object, sizeof(struct fat_arch) * index, render)->offset >= object->eof)
 			{
 				if (render)
 					error(CORRUPTED_FILE, object->name);
@@ -56,7 +56,7 @@ static inline uint32_t			contains_x86(t_object const *object, struct fat_header 
 
 	while (index < header->nfat_arch)
 	{
-		if (get_arch(object, sizeof(struct fat_arch) * index, false)->cputype == X86_64)
+		if (get_arch(object, sizeof(struct fat_arch) * index, false)->cputype == CPU_TYPE_X86_64)
 			break ;
 		index++;
 	}
@@ -78,8 +78,9 @@ static void						output_my_arch(t_object *object, struct fat_header const *heade
 	for (unsigned int index = 0; index < header->nfat_arch; index++)
 	{
 		if (is_corrupt(object, header, false))
-			return ;
-		set_title(object, " (for architecture i386)");
+				return ;
+		if (get_arch(object, sizeof(struct fat_arch) * index, false)->cputype == CPU_TYPE_I386)
+			set_title(object, " (for architecture i386)");
 		call(object, index);
 	}
 }

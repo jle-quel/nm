@@ -24,7 +24,7 @@ SRC_NAME =	error.c					\
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 RED=\033[1;31m
 GREEN=\033[1;32m

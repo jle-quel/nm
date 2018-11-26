@@ -21,7 +21,6 @@
 
 #define VALID_ARGV_SIZE 2
 #define STATE_MACHINE_SIZE 4
-#define X86_64 16777223
 #define AR_MAGIC 0x0a3e686372613c21
 
 ////////////////////////////////////////////////////////////////////////////////
