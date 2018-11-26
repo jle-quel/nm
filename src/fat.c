@@ -6,17 +6,8 @@
 
 static void	set_title(t_object *object, char const *str)
 {
-	size_t const	length = strlen(object->name);
-
-	if ((object->title = (char *)malloc(strlen(str) + length + 1)) == NULL)
-	{
-		printf("fatal: out of memory, malloc failed\n");
-		exit(1);
-	}
-
-	bzero(object->title, strlen(str) + length + 1);
-	strcpy(object->title, object->name);
-	strcpy(object->title + strlen(object->title), str);
+	printf("%s", object->name);
+	printf("%s\n", str);
 } 
 
 static inline struct fat_arch	*get_arch(t_object const *object, size_t const size, bool swap)
@@ -90,7 +81,6 @@ static void						output_my_arch(t_object *object, struct fat_header const *heade
 			return ;
 		set_title(object, " (for architecture i386)");
 		call(object, index);
-		free(object->title);
 	}
 }
 

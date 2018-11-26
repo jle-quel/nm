@@ -6,19 +6,10 @@
 
 static void	set_title(t_object *object, char const *str)
 {
-	size_t const	length = strlen(object->name);
-
-	if ((object->title = (char *)malloc(strlen(str) + length + 3)) == NULL)
-	{
-		printf("fatal: out of memory, malloc failed\n");
-		exit(1);
-	}
-
-	bzero(object->title, strlen(str) + length + 3);
-	strcpy(object->title, object->name);
-	strcpy(object->title + strlen(object->title), "(");
-	strcpy(object->title + strlen(object->title), str);
-	strcpy(object->title + strlen(object->title), ")");
+	printf("%s", object->name);
+	printf("(");
+	printf("%s", str);
+	printf(")");
 } 
 
 static struct ar_hdr	*get_ar(t_object *object, struct ar_hdr const *header)
@@ -38,7 +29,6 @@ static inline void	call(t_object *object, struct ar_hdr const *ar)
 {
 	set_title(object, ar->ar_fmag + 2);
 	handler(object);
-	free(object->title);
 }
 
 static inline bool	is_eof(t_object const *object, struct ar_hdr const *ar)
