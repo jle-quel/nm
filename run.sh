@@ -14,6 +14,12 @@ fi
 ###                                FUNCTIONS                                 ###
 ################################################################################
 
+function clean()
+{
+	rm mine
+	rm nm
+}
+
 function is_directory()
 {
 	cd $1 1>/dev/null 2>/dev/null
@@ -60,6 +66,7 @@ if [ ${1} ]; then
 	is_directory ${1}
 	is_nm
 	run ${1}
+	clean
 else
 	printf "usage: run.sh [directory]\n"
 fi
