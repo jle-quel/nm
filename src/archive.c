@@ -8,13 +8,8 @@ static void	set_title(t_object *object, char const *str)
 {
 	size_t const	length = strlen(object->name);
 
-	if ((object->title = (char *)malloc(strlen(str) + length + 3)) == NULL)
-	{
-		printf("fatal: out of memory, malloc failed\n");
-		exit(1);
-	}
+	object->title = constructor(strlen(str) + length + 3);
 
-	bzero(object->title, strlen(str) + length + 3);
 	strcpy(object->title, object->name);
 	strcpy(object->title + strlen(object->title), "(");
 	strcpy(object->title + strlen(object->title), str);

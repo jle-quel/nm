@@ -51,8 +51,8 @@ function run()
 		nm ${filepath} 1>/dev/null 2>/dev/null
 		if [ $? == 0 ]; then
 			printf "${filepath}: "
-			./ft_nm ${filepath} 1>mine 2>/dev/null
-			nm ${filepath} 1>nm 2>/dev/null
+			./ft_nm ${filepath} 1>mine
+			nm ${filepath} 1>nm
 			diff mine nm 1>/dev/null && printf " ${C_GREEN}OK${C_NO}\n" || printf " ${C_RED}ERR${C_NO}\n"
 		fi;
 	done

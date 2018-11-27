@@ -6,8 +6,12 @@
 
 static void	set_title(t_object *object, char const *str)
 {
-	printf("\n%s", object->name);
-	printf("%s\n", str);
+	size_t const	length = strlen(object->name);
+
+	object->title = constructor(strlen(str) + length + 2);
+
+	strcpy(object->title, object->name);
+	strcpy(object->title + strlen(object->title), str);
 } 
 
 static inline struct fat_arch	*get_arch(t_object const *object, size_t const size, bool swap)
@@ -80,8 +84,13 @@ static void						output_my_arch(t_object *object, struct fat_header const *heade
 		if (is_corrupt(object, header, false))
 				return ;
 		if (get_arch(object, sizeof(struct fat_arch) * index, false)->cputype == CPU_TYPE_I386)
+		{
 			set_title(object, " (for architecture i386)");
-		call(object, index);
+			call(object, index);
+			free(object->title);
+		}
+		else
+			call(object, index);
 	}
 }
 
